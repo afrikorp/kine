@@ -373,7 +373,7 @@ export function FactureFormPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>N°</TableHead>
+                    <TableHead className="w-16 text-right">N°</TableHead>
                     <TableHead>Jour</TableHead>
                     <TableHead>Date</TableHead>
                   </TableRow>
@@ -381,7 +381,7 @@ export function FactureFormPage() {
                 <TableBody>
                   {seancesPreview.map((s) => (
                     <TableRow key={s.numero}>
-                      <TableCell>{s.numero}</TableCell>
+                      <TableCell className="text-right">{s.numero}</TableCell>
                       <TableCell>{JOURS_SEMAINE[new Date(`${s.date}T00:00:00`).getDay()]}</TableCell>
                       <TableCell>{formatDate(s.date)}</TableCell>
                     </TableRow>
