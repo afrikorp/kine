@@ -6,17 +6,23 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "db:migrate:local": "wrangler d1 migrations apply kine-cnam-db --local",
     "db:migrate:remote": "wrangler d1 migrations apply kine-cnam-db --remote",
     "db:console:local": "wrangler d1 execute kine-cnam-db --local --command"
   },
   "dependencies": {
-    "@kine/cnam-format": "workspace:*"
+    "@kine/cnam-format": "workspace:*",
+    "@kine/scheduling": "workspace:*",
+    "@kine/shared": "workspace:*",
+    "hono": "^4.6.11"
   },
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.6.1",
     "@cloudflare/workers-types": "^4.20241106.0",
     "typescript": "^5.6.0",
+    "vitest": "^2.1.0",
     "wrangler": "^3.90.0"
   }
 }

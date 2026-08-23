@@ -1,9 +1,9 @@
-# @kine/api — schéma D1
+# @kine/api — Worker API + schéma D1
 
-Ce package héberge le Worker API (implémenté à l'étape 4) et le schéma D1
-(étape 3, terminée ici).
+Worker Cloudflare (Hono) exposant l'API REST de KINE.CNAM, et le schéma D1
+(étape 3) sur lequel elle s'appuie.
 
-## Schéma
+## Schéma D1
 
 Voir `migrations/0001_init.sql` pour le détail commenté. Résumé des tables :
 
@@ -29,6 +29,51 @@ que créer les tables. `0002_seed.sql` insère uniquement des données de
 bootstrap propres à l'app (tarif en vigueur, jours fériés à date fixe) —
 pas des données patients/factures.
 
+## API
+
+Authentification par cookie de session (HttpOnly), stockée dans KV
+(`SESSIONS`). Toutes les routes `/api/*` sauf `/api/auth/*` exigent une
+session valide.
+
+- `POST /api/auth/setup` — bootstrap : crée le seul utilisateur de l'app
+  (refuse si un utilisateur existe déjà).
+- `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`
+- `GET/PUT /api/cabinet` — infos cabinet (singleton)
+- `GET/POST /api/parametres/tarif`, `GET /api/parametres/tarif/actuel?date=` —
+  tarif historisé, résolution par date
+- `GET/POST /api/parametres/jours-feries`, `DELETE .../:id`
+- `GET/POST /api/patients`, `GET/PUT/DELETE /api/patients/:id`
+- `GET/POST /api/patients/:patientId/decisions`, `GET/DELETE /api/decisions/:id`
+- `GET/POST /api/factures`, `GET/PUT/DELETE /api/factures/:id` — calcule
+  TTC/HT/TVA via `@kine/cnam-format` à partir du tarif résolu (ou fourni
+  explicitement) ; verrouillée dès qu'une facture est transmise dans un
+  bordereau
+- `GET /api/factures/:id/memoire-seances` — dates de séances via
+  `@kine/scheduling`, jours fériés inclus
+- `GET/POST /api/bordereaux`, `GET /api/bordereaux/:id` (totaux + montant
+  en toutes lettres via `@kine/shared`)
+- `GET /api/bordereaux/:id/cnam-file` — génère le fichier électronique
+  CNAM (`@kine/cnam-format`), le stocke sur R2 (`FILES`) et le renvoie en
+  téléchargement
+
+## Tests
+
+Tests d'intégration via `@cloudflare/vitest-pool-workers` : Worker réel,
+D1/KV/R2 simulés (Miniflare), migrations appliquées automatiquement avant
+chaque fichier de test (`test/apply-migrations.ts`).
+
+```sh
+pnpm --filter @kine/api test
+```
+
+26 tests, dont le plus significatif : **reproduction caractère pour
+caractère du bordereau réel 017/2024 (32 factures) en passant uniquement
+par l'API HTTP** — création des patients/décisions/factures via `POST`,
+assemblage du bordereau, puis comparaison du fichier CNAM généré par
+`GET /api/bordereaux/:id/cnam-file` aux mêmes fixtures que
+`@kine/cnam-format`. Valide le câblage complet DB → API → fichier, en plus
+de la logique de formatage déjà validée à 100% dans `@kine/cnam-format`.
+
 ## Commandes
 
 ```sh
@@ -41,13 +86,10 @@ pnpm --filter @kine/api db:migrate:remote
 
 # Requête ad-hoc sur la base locale
 pnpm --filter @kine/api db:console:local "SELECT * FROM parametres_tarif;"
-```
 
-Schéma validé par une insertion de bout en bout (patient → décision →
-bordereau → facture, jointure complète) reproduisant la facture n°459 du
-bordereau 017/2024 utilisée comme fixture dans `@kine/cnam-format`, et par
-un test de contrainte CHECK (`seances_par_semaine` rejette une valeur hors
-`{2,3,4}`).
+# Lancer le Worker en local
+pnpm --filter @kine/api dev
+```
 
 ## À faire avant le premier déploiement
 
@@ -55,7 +97,9 @@ un test de contrainte CHECK (`seances_par_semaine` rejette une valeur hors
   dans `wrangler.toml`.
 - `wrangler kv namespace create SESSIONS` puis reporter l'`id` réel.
 - `wrangler r2 bucket create kine-cnam-files`.
-- Remplacer les placeholders dans `wrangler.toml`.
-
-`src/index.ts` n'est qu'un stub de santé (`/health`) le temps de l'étape 4
-(routing + handlers CRUD).
+- Remplacer les placeholders dans `wrangler.toml`, et définir
+  `ALLOWED_ORIGIN` (var wrangler) une fois le domaine Cloudflare Pages du
+  frontend connu (étape 5) — sans quoi le CORS reflète l'origine de la
+  requête, pratique en développement mais à restreindre en production.
+- Appeler `POST /api/auth/setup` une première fois pour créer le compte du
+  praticien.
