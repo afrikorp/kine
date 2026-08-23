@@ -204,176 +204,188 @@ export function FactureFormPage() {
   }
 
   return (
-    <div className="flex max-w-2xl flex-col gap-6">
-      <Link to="/factures" className="flex w-fit items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-        <ArrowLeft className="h-4 w-4" /> Retour aux factures
-      </Link>
-
-      <h1 className="text-2xl font-semibold">{isEdit ? "Modifier la facture" : "Nouvelle facture"}</h1>
+    <div className="flex max-w-6xl flex-col gap-3">
+      <div className="flex items-center justify-between">
+        <div>
+          <Link to="/factures" className="flex w-fit items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+            <ArrowLeft className="h-4 w-4" /> Retour aux factures
+          </Link>
+          <h1 className="text-xl font-semibold">{isEdit ? "Modifier la facture" : "Nouvelle facture"}</h1>
+        </div>
+        <div className="flex gap-2">
+          <Button type="button" variant="outline" onClick={() => navigate(-1)}>
+            Annuler
+          </Button>
+          <Button type="submit" form="facture-form" disabled={loading || transmise}>
+            {loading ? "Enregistrement..." : "Enregistrer"}
+          </Button>
+        </div>
+      </div>
 
       {transmise && (
         <ErrorBanner message="Cette facture a déjà été transmise dans un bordereau et ne peut plus être modifiée." />
       )}
+      <ErrorBanner message={error} />
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-        <Card>
-          <CardHeader>
-            <CardTitle>Patient</CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-2 gap-3">
-            <Field label="Nom" htmlFor="nom">
-              <Input id="nom" value={nom} onChange={(e) => setNom(e.target.value)} required disabled={readOnlyPatientDecision} />
-            </Field>
-            <Field label="Prénom" htmlFor="prenom">
-              <Input id="prenom" value={prenom} onChange={(e) => setPrenom(e.target.value)} required disabled={readOnlyPatientDecision} />
-            </Field>
-            <Field label="Racine" htmlFor="racine" hint='Ex: "9875710" dans 9875710/0'>
-              <Input id="racine" value={racine} onChange={(e) => setRacine(e.target.value)} required disabled={readOnlyPatientDecision} />
-            </Field>
-            <Field label="Clé" htmlFor="cle" hint='Ex: "0"'>
-              <Input id="cle" value={cle} onChange={(e) => setCle(e.target.value)} required disabled={readOnlyPatientDecision} />
-            </Field>
-            <Field label="Qualité" htmlFor="qualite">
-              <Select
-                value={qualiteBeneficiaire}
-                onValueChange={(v) => setQualiteBeneficiaire(v as QualiteBeneficiaire)}
-                disabled={readOnlyPatientDecision}
-              >
-                <SelectTrigger id="qualite">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {QUALITES.map((q) => (
-                    <SelectItem key={q.value} value={q.value}>
-                      {q.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </Field>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Décision de prise en charge CNAM</CardTitle>
-            <p className="text-sm text-muted-foreground">
-              Format : bureau / année / n° ordre — ex. <span className="font-mono">40/2025/13819</span>
-            </p>
-          </CardHeader>
-          <CardContent className="grid grid-cols-3 gap-3">
-            <Field label="Code bureau" htmlFor="bureau">
-              <Input id="bureau" value={bureau} onChange={(e) => setBureau(e.target.value)} required disabled={readOnlyPatientDecision} />
-            </Field>
-            <Field label="Année" htmlFor="annee">
-              <Input
-                id="annee"
-                type="number"
-                value={annee}
-                onChange={(e) => setAnnee(Number(e.target.value))}
-                required
-                disabled={readOnlyPatientDecision}
-              />
-            </Field>
-            <Field label="N° ordre" htmlFor="numeroOrdre">
-              <Input
-                id="numeroOrdre"
-                type="number"
-                value={numeroOrdre}
-                onChange={(e) => setNumeroOrdre(e.target.value)}
-                required
-                disabled={readOnlyPatientDecision}
-              />
-            </Field>
-            <div className="col-span-3">
-              <Field label="N° Décision" htmlFor="numeroDecision">
-                <Input id="numeroDecision" value={`${bureau}/${annee}/${numeroOrdre}`} readOnly disabled />
-              </Field>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Séances</CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-2 gap-3">
-            <Field label="Date de début" htmlFor="dateDebut">
-              <Input id="dateDebut" type="date" value={dateDebut} onChange={(e) => setDateDebut(e.target.value)} required />
-            </Field>
-            <Field label="Date de fin" htmlFor="dateFin" hint="Calculée automatiquement, modifiable">
-              <Input id="dateFin" type="date" value={dateFin} onChange={(e) => setDateFin(e.target.value)} required />
-            </Field>
-            <Field label="Nombre de séances" htmlFor="nbSeances">
-              <Input
-                id="nbSeances"
-                type="number"
-                min={1}
-                value={nbSeances}
-                onChange={(e) => setNbSeances(Number(e.target.value))}
-                required
-              />
-            </Field>
-            <Field label="Séances / semaine" htmlFor="rythme">
-              <Select value={String(seancesParSemaine)} onValueChange={(v) => setSeancesParSemaine(Number(v) as 2 | 3 | 4)}>
-                <SelectTrigger id="rythme">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="2">2 séances/semaine</SelectItem>
-                  <SelectItem value="3">3 séances/semaine</SelectItem>
-                  <SelectItem value="4">4 séances/semaine</SelectItem>
-                </SelectContent>
-              </Select>
-            </Field>
-            <Field label="Date d'édition" htmlFor="dateEdition">
-              <Input id="dateEdition" type="date" value={dateEdition} onChange={(e) => setDateEdition(e.target.value)} required />
-            </Field>
-            <Field label="Code prestation" htmlFor="prestation">
-              <Input id="prestation" value={prestation} onChange={(e) => setPrestation(e.target.value)} required />
-            </Field>
-          </CardContent>
-        </Card>
-
-        {preview && (
+      <form id="facture-form" onSubmit={handleSubmit} className="grid grid-cols-1 gap-3 lg:grid-cols-[1fr_360px] lg:items-start">
+        <div className="flex flex-col gap-3">
           <Card>
-            <CardHeader>
-              <CardTitle>Montants (aperçu)</CardTitle>
+            <CardHeader className="gap-1 p-3">
+              <CardTitle className="text-base">Patient</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-4 gap-3 text-sm">
-              <div>
-                <p className="text-muted-foreground">Prix unitaire</p>
-                <p className="font-medium">{formatMontant(tarif!.prixUnitaire)} DT</p>
+            <CardContent className="grid grid-cols-2 gap-2 p-3 pt-0 sm:grid-cols-5">
+              <div className="col-span-2">
+                <Field label="Nom" htmlFor="nom">
+                  <Input id="nom" value={nom} onChange={(e) => setNom(e.target.value)} required disabled={readOnlyPatientDecision} />
+                </Field>
               </div>
-              <div>
-                <p className="text-muted-foreground">HT</p>
-                <p className="font-medium">{formatMontant(preview.montantHT)} DT</p>
+              <div className="col-span-2">
+                <Field label="Prénom" htmlFor="prenom">
+                  <Input id="prenom" value={prenom} onChange={(e) => setPrenom(e.target.value)} required disabled={readOnlyPatientDecision} />
+                </Field>
               </div>
-              <div>
-                <p className="text-muted-foreground">TVA ({tarif!.tauxTva}%)</p>
-                <p className="font-medium">{formatMontant(preview.montantTVA)} DT</p>
-              </div>
-              <div>
-                <p className="text-muted-foreground">TTC</p>
-                <p className="font-medium">{formatMontant(preview.montantTTC)} DT</p>
+              <Field label="Racine" htmlFor="racine">
+                <Input id="racine" value={racine} onChange={(e) => setRacine(e.target.value)} required disabled={readOnlyPatientDecision} />
+              </Field>
+              <Field label="Clé" htmlFor="cle">
+                <Input id="cle" value={cle} onChange={(e) => setCle(e.target.value)} required disabled={readOnlyPatientDecision} />
+              </Field>
+              <div className="col-span-2 sm:col-span-3">
+                <Field label="Qualité" htmlFor="qualite">
+                  <Select
+                    value={qualiteBeneficiaire}
+                    onValueChange={(v) => setQualiteBeneficiaire(v as QualiteBeneficiaire)}
+                    disabled={readOnlyPatientDecision}
+                  >
+                    <SelectTrigger id="qualite">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {QUALITES.map((q) => (
+                        <SelectItem key={q.value} value={q.value}>
+                          {q.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </Field>
               </div>
             </CardContent>
           </Card>
-        )}
 
-        {seancesPreview && seancesPreview.length > 0 && (
           <Card>
-            <CardHeader>
-              <CardTitle>Pointage automatique des séances</CardTitle>
-              <p className="text-sm text-muted-foreground">
-                Calculé à partir de la date de début, du nombre de séances et du rythme (dimanches et jours fériés exclus).
-              </p>
+            <CardHeader className="gap-1 p-3">
+              <CardTitle className="text-base">Décision de prise en charge CNAM</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="grid grid-cols-4 gap-2 p-3 pt-0">
+              <Field label="Code bureau" htmlFor="bureau">
+                <Input id="bureau" value={bureau} onChange={(e) => setBureau(e.target.value)} required disabled={readOnlyPatientDecision} />
+              </Field>
+              <Field label="Année" htmlFor="annee">
+                <Input
+                  id="annee"
+                  type="number"
+                  value={annee}
+                  onChange={(e) => setAnnee(Number(e.target.value))}
+                  required
+                  disabled={readOnlyPatientDecision}
+                />
+              </Field>
+              <Field label="N° ordre" htmlFor="numeroOrdre">
+                <Input
+                  id="numeroOrdre"
+                  type="number"
+                  value={numeroOrdre}
+                  onChange={(e) => setNumeroOrdre(e.target.value)}
+                  required
+                  disabled={readOnlyPatientDecision}
+                />
+              </Field>
+              <Field label="N° Décision" htmlFor="numeroDecision">
+                <Input id="numeroDecision" value={`${bureau}/${annee}/${numeroOrdre}`} readOnly disabled />
+              </Field>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="gap-1 p-3">
+              <CardTitle className="text-base">Séances</CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-3 gap-2 p-3 pt-0">
+              <Field label="Date de début" htmlFor="dateDebut">
+                <Input id="dateDebut" type="date" value={dateDebut} onChange={(e) => setDateDebut(e.target.value)} required />
+              </Field>
+              <Field label="Nbre séances" htmlFor="nbSeances">
+                <Input
+                  id="nbSeances"
+                  type="number"
+                  min={1}
+                  value={nbSeances}
+                  onChange={(e) => setNbSeances(Number(e.target.value))}
+                  required
+                />
+              </Field>
+              <Field label="Nbre S/Semaine" htmlFor="rythme">
+                <Select value={String(seancesParSemaine)} onValueChange={(v) => setSeancesParSemaine(Number(v) as 2 | 3 | 4)}>
+                  <SelectTrigger id="rythme">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="2">2/semaine</SelectItem>
+                    <SelectItem value="3">3/semaine</SelectItem>
+                    <SelectItem value="4">4/semaine</SelectItem>
+                  </SelectContent>
+                </Select>
+              </Field>
+              <Field label="Date de fin" htmlFor="dateFin" hint="Calculée automatiquement, modifiable">
+                <Input id="dateFin" type="date" value={dateFin} onChange={(e) => setDateFin(e.target.value)} required />
+              </Field>
+              <Field label="Date d'édition" htmlFor="dateEdition">
+                <Input id="dateEdition" type="date" value={dateEdition} onChange={(e) => setDateEdition(e.target.value)} required />
+              </Field>
+              <Field label="Code prestation" htmlFor="prestation">
+                <Input id="prestation" value={prestation} onChange={(e) => setPrestation(e.target.value)} required />
+              </Field>
+            </CardContent>
+          </Card>
+
+          {preview && (
+            <Card>
+              <CardHeader className="gap-1 p-3">
+                <CardTitle className="text-base">Calcul HT et TTC</CardTitle>
+              </CardHeader>
+              <CardContent className="grid grid-cols-4 gap-2 p-3 pt-0 text-sm">
+                <div>
+                  <p className="text-muted-foreground">Prix unitaire</p>
+                  <p className="font-medium">{formatMontant(tarif!.prixUnitaire)} DT</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">HT</p>
+                  <p className="font-medium">{formatMontant(preview.montantHT)} DT</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">TVA ({tarif!.tauxTva}%)</p>
+                  <p className="font-medium">{formatMontant(preview.montantTVA)} DT</p>
+                </div>
+                <div>
+                  <p className="text-muted-foreground">TTC</p>
+                  <p className="font-medium">{formatMontant(preview.montantTTC)} DT</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+
+        <Card className="lg:sticky lg:top-3">
+          <CardHeader className="gap-1 p-3">
+            <CardTitle className="text-base">Pointage automatique des séances</CardTitle>
+          </CardHeader>
+          <CardContent className="max-h-[70vh] overflow-y-auto p-3 pt-0">
+            {seancesPreview && seancesPreview.length > 0 ? (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-16 text-right">N°</TableHead>
+                    <TableHead className="w-10 text-right">N°</TableHead>
                     <TableHead>Jour</TableHead>
                     <TableHead>Date</TableHead>
                   </TableRow>
@@ -388,20 +400,11 @@ export function FactureFormPage() {
                   ))}
                 </TableBody>
               </Table>
-            </CardContent>
-          </Card>
-        )}
-
-        <ErrorBanner message={error} />
-
-        <div className="flex justify-end gap-2">
-          <Button type="button" variant="outline" onClick={() => navigate(-1)}>
-            Annuler
-          </Button>
-          <Button type="submit" disabled={loading || transmise}>
-            {loading ? "Enregistrement..." : "Enregistrer"}
-          </Button>
-        </div>
+            ) : (
+              <p className="p-3 text-sm text-muted-foreground">Renseignez la date de début et le nombre de séances.</p>
+            )}
+          </CardContent>
+        </Card>
       </form>
     </div>
   );
