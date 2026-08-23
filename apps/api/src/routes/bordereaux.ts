@@ -49,7 +49,9 @@ bordereauxRoutes.get("/:id", async (c) => {
   if (!bordereau) notFound("Bordereau introuvable");
 
   const { results: factureRows } = await c.env.DB.prepare(
-    `SELECT f.*, p.nom as patient_nom, p.prenom as patient_prenom, d.bureau, d.annee as decision_annee, d.numero_ordre
+    `SELECT f.*, p.nom as patient_nom, p.prenom as patient_prenom,
+            p.numero_assure_racine as patient_numero_assure_racine, p.numero_assure_cle as patient_numero_assure_cle,
+            d.bureau, d.annee as decision_annee, d.numero_ordre
      FROM factures f
      JOIN decisions_cnam d ON d.id = f.decision_id
      JOIN patients p ON p.id = d.patient_id
@@ -57,7 +59,17 @@ bordereauxRoutes.get("/:id", async (c) => {
      ORDER BY f.numero ASC`,
   )
     .bind(id)
-    .all<FactureRow & { patient_nom: string; patient_prenom: string; bureau: string; decision_annee: number; numero_ordre: number }>();
+    .all<
+      FactureRow & {
+        patient_nom: string;
+        patient_prenom: string;
+        patient_numero_assure_racine: string;
+        patient_numero_assure_cle: string;
+        bureau: string;
+        decision_annee: number;
+        numero_ordre: number;
+      }
+    >();
 
   const t = totals(factureRows);
 
@@ -70,6 +82,8 @@ bordereauxRoutes.get("/:id", async (c) => {
       ...mapFacture(row),
       patientNom: row.patient_nom,
       patientPrenom: row.patient_prenom,
+      patientNumeroAssureRacine: row.patient_numero_assure_racine,
+      patientNumeroAssureCle: row.patient_numero_assure_cle,
       decisionBureau: row.bureau,
       decisionAnnee: row.decision_annee,
       decisionNumeroOrdre: row.numero_ordre,
