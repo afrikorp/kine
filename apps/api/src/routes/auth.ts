@@ -13,7 +13,10 @@ function cookieOptions(c: { req: { url: string } }) {
   const isHttps = new URL(c.req.url).protocol === "https:";
   return {
     httpOnly: true,
-    sameSite: "Lax" as const,
+    // Le front (Pages) et l'API (Workers) vivent sur des domaines différents
+    // en production : le cookie doit voyager cross-site, donc SameSite=None
+    // (qui exige Secure). En local (http), Lax reste utilisable.
+    sameSite: isHttps ? ("None" as const) : ("Lax" as const),
     secure: isHttps,
     path: "/",
     maxAge: sessionCookieMaxAge(),
