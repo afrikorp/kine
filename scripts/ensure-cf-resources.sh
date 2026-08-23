@@ -25,8 +25,16 @@ D1_ID=$(echo "$D1_LIST" | jq -r --arg NAME "$D1_NAME" '.[] | select(.name == $NA
 
 if [ -z "${D1_ID}" ] || [ "${D1_ID}" = "null" ]; then
   echo "Pas trouvé, création de la base D1 $D1_NAME..."
-  D1_CREATE=$(npx wrangler d1 create "$D1_NAME" --json)
-  D1_ID=$(echo "$D1_CREATE" | jq -r '.uuid // empty')
+  # `d1 create` ne supporte pas --json sur toutes les versions de wrangler
+  # (contrairement à `d1 list`) : on récupère la sortie humaine et on tente
+  # d'abord un parsing JSON, puis un repli sur la ligne `database_id = "..."`
+  # du snippet TOML qu'elle affiche toujours.
+  D1_CREATE_RAW=$(npx wrangler d1 create "$D1_NAME" 2>&1) || true
+  echo "$D1_CREATE_RAW"
+  D1_ID=$(echo "$D1_CREATE_RAW" | jq -r '.uuid // empty' 2>/dev/null || true)
+  if [ -z "${D1_ID}" ]; then
+    D1_ID=$(echo "$D1_CREATE_RAW" | grep -oE 'database_id[[:space:]]*=[[:space:]]*"[0-9a-fA-F-]+"' | grep -oE '"[0-9a-fA-F-]+"' | tr -d '"' | head -n1)
+  fi
 fi
 
 if ! [[ "$D1_ID" =~ $UUID_RE ]]; then
@@ -65,7 +73,15 @@ R2_EXISTS=$(echo "$R2_LIST" | jq -r --arg NAME "$R2_BUCKET" '(.buckets // .) | .
 
 if [ -z "${R2_EXISTS}" ]; then
   echo "Pas trouvé, création du bucket R2 $R2_BUCKET..."
-  npx wrangler r2 bucket create "$R2_BUCKET"
+  # Tolère "already exists" si `r2 bucket list --json` avait mal détecté sa présence.
+  R2_CREATE_OUTPUT=$(npx wrangler r2 bucket create "$R2_BUCKET" 2>&1) || {
+    if ! echo "$R2_CREATE_OUTPUT" | grep -qi "already exists"; then
+      echo "$R2_CREATE_OUTPUT"
+      echo "::error::Échec de la création du bucket R2 '$R2_BUCKET'"
+      exit 1
+    fi
+  }
+  echo "$R2_CREATE_OUTPUT"
 else
   echo "Bucket R2 déjà présent."
 fi
