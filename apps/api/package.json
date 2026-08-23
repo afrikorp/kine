@@ -1,0 +1,22 @@
+{
+  "name": "@kine/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "db:migrate:local": "wrangler d1 migrations apply kine-cnam-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply kine-cnam-db --remote",
+    "db:console:local": "wrangler d1 execute kine-cnam-db --local --command"
+  },
+  "dependencies": {
+    "@kine/cnam-format": "workspace:*"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241106.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^3.90.0"
+  }
+}
