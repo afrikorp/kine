@@ -14,6 +14,7 @@ export interface CabinetRow {
   rib: string;
   code_cnam_praticien: string;
   cle_cnam_praticien: string;
+  numero_decision: string;
   updated_at: string;
 }
 

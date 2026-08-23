@@ -17,12 +17,13 @@ cabinetRoutes.put("/", async (c) => {
   const cleCnamPraticien = requireString(body.cleCnamPraticien, "cleCnamPraticien");
 
   await c.env.DB.prepare(
-    `INSERT INTO cabinet (id, nom, adresse, telephone, rc, matricule_fiscal, rib, code_cnam_praticien, cle_cnam_praticien)
-     VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?)
+    `INSERT INTO cabinet (id, nom, adresse, telephone, rc, matricule_fiscal, rib, code_cnam_praticien, cle_cnam_praticien, numero_decision)
+     VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?)
      ON CONFLICT(id) DO UPDATE SET
        nom = excluded.nom, adresse = excluded.adresse, telephone = excluded.telephone,
        rc = excluded.rc, matricule_fiscal = excluded.matricule_fiscal, rib = excluded.rib,
-       code_cnam_praticien = excluded.code_cnam_praticien, cle_cnam_praticien = excluded.cle_cnam_praticien`,
+       code_cnam_praticien = excluded.code_cnam_praticien, cle_cnam_praticien = excluded.cle_cnam_praticien,
+       numero_decision = excluded.numero_decision`,
   )
     .bind(
       nom,
@@ -33,6 +34,7 @@ cabinetRoutes.put("/", async (c) => {
       optionalString(body.rib),
       codeCnamPraticien,
       cleCnamPraticien,
+      optionalString(body.numeroDecision),
     )
     .run();
 

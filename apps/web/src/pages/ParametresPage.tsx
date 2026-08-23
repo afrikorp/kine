@@ -20,6 +20,7 @@ const EMPTY_CABINET: Cabinet = {
   rib: "",
   codeCnamPraticien: "",
   cleCnamPraticien: "",
+  numeroDecision: "",
   updatedAt: "",
 };
 
@@ -94,6 +95,13 @@ function CabinetTab() {
                 value={cabinet.cleCnamPraticien}
                 onChange={(e) => setCabinet({ ...cabinet, cleCnamPraticien: e.target.value })}
                 required
+              />
+            </Field>
+            <Field label="N° Décision" htmlFor="numeroDecision">
+              <Input
+                id="numeroDecision"
+                value={cabinet.numeroDecision}
+                onChange={(e) => setCabinet({ ...cabinet, numeroDecision: e.target.value })}
               />
             </Field>
           </div>
