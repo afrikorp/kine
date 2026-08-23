@@ -98,6 +98,12 @@ export interface Cabinet {
   codeCnamPraticien: string;
   cleCnamPraticien: string;
   numeroDecision: string;
+  specialite: string;
+  banque: string;
+  typePraticien: string;
+  codePrestation: string;
+  codeEmployeur: string;
+  cleEmployeur: string;
   updatedAt: string;
 }
 

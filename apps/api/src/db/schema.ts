@@ -15,6 +15,12 @@ export interface CabinetRow {
   code_cnam_praticien: string;
   cle_cnam_praticien: string;
   numero_decision: string;
+  specialite: string;
+  banque: string;
+  type_praticien: string;
+  code_prestation: string;
+  code_employeur: string;
+  cle_employeur: string;
   updated_at: string;
 }
 
