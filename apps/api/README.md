@@ -80,10 +80,6 @@ de la logique de formatage déjà validée à 100% dans `@kine/cnam-format`.
 # Appliquer les migrations sur la base locale (SQLite via Miniflare)
 pnpm --filter @kine/api db:migrate:local
 
-# Sur la base D1 distante (après `wrangler d1 create kine-cnam-db` et mise
-# à jour de database_id dans wrangler.toml)
-pnpm --filter @kine/api db:migrate:remote
-
 # Requête ad-hoc sur la base locale
 pnpm --filter @kine/api db:console:local "SELECT * FROM parametres_tarif;"
 
@@ -91,15 +87,15 @@ pnpm --filter @kine/api db:console:local "SELECT * FROM parametres_tarif;"
 pnpm --filter @kine/api dev
 ```
 
-## À faire avant le premier déploiement
+`wrangler.toml` utilise des placeholders (`__D1_DATABASE_ID__`,
+`__KV_NAMESPACE_ID__`) pour `database_id`/`id` — suffisants pour le
+développement local (`wrangler dev --local`), remplacés par les vraies
+valeurs uniquement en CI au moment du déploiement (voir
+`.github/workflows/deploy.yml` et `scripts/ensure-cf-resources.sh` à la
+racine du repo). Pas besoin de les modifier à la main.
 
-- `wrangler d1 create kine-cnam-db` puis reporter le `database_id` réel
-  dans `wrangler.toml`.
-- `wrangler kv namespace create SESSIONS` puis reporter l'`id` réel.
-- `wrangler r2 bucket create kine-cnam-files`.
-- Remplacer les placeholders dans `wrangler.toml`, et définir
-  `ALLOWED_ORIGIN` (var wrangler) une fois le domaine Cloudflare Pages du
-  frontend connu (étape 5) — sans quoi le CORS reflète l'origine de la
-  requête, pratique en développement mais à restreindre en production.
-- Appeler `POST /api/auth/setup` une première fois pour créer le compte du
-  praticien.
+## Déploiement
+
+Entièrement automatisé via GitHub Actions — voir `DEPLOY.md` à la racine
+du repo pour le détail (secret requis, ce que fait le workflow, comment le
+déclencher).
