@@ -1,0 +1,612 @@
+{
+  "annee": 2024,
+  "numero": 14,
+  "praticien": {
+    "code": "29875",
+    "cle": "96"
+  },
+  "prixUnitaire": 11.5,
+  "factures": [
+    {
+      "numero": 354,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 7267
+      },
+      "assure": {
+        "racine": "12366522",
+        "cle": "0"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 18,
+      "dateDebut": "2025-04-17",
+      "dateFin": "2025-05-26",
+      "tauxTVA": 7,
+      "montantTTC": 207.0,
+      "montantHT": 193.458,
+      "montantTVA": 13.542,
+      "dateEdition": "2025-10-19"
+    },
+    {
+      "numero": 355,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 6769
+      },
+      "assure": {
+        "racine": "11638168",
+        "cle": "2"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 12,
+      "dateDebut": "2025-04-11",
+      "dateFin": "2025-05-07",
+      "tauxTVA": 7,
+      "montantTTC": 138.0,
+      "montantHT": 128.972,
+      "montantTVA": 9.028,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 356,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4834
+      },
+      "assure": {
+        "racine": "2262000590",
+        "cle": "90"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-03-10",
+      "dateFin": "2025-05-02",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 357,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4350
+      },
+      "assure": {
+        "racine": "79515142",
+        "cle": "42"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-02-28",
+      "dateFin": "2025-04-23",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 358,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5333
+      },
+      "assure": {
+        "racine": "1921451071",
+        "cle": "71"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-03-17",
+      "dateFin": "2025-05-09",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 359,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4911
+      },
+      "assure": {
+        "racine": "84823264",
+        "cle": "64"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 12,
+      "dateDebut": "2025-03-10",
+      "dateFin": "2025-04-04",
+      "tauxTVA": 7,
+      "montantTTC": 138.0,
+      "montantHT": 128.972,
+      "montantTVA": 9.028,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 360,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4159
+      },
+      "assure": {
+        "racine": "88090144",
+        "cle": "44"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-02-25",
+      "dateFin": "2025-04-18",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 361,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5555
+      },
+      "assure": {
+        "racine": "5014173",
+        "cle": "0"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 18,
+      "dateDebut": "2025-03-21",
+      "dateFin": "2025-04-30",
+      "tauxTVA": 7,
+      "montantTTC": 207.0,
+      "montantHT": 193.458,
+      "montantTVA": 13.542,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 362,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 7104
+      },
+      "assure": {
+        "racine": "87865125",
+        "cle": "25"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-04-15",
+      "dateFin": "2025-06-06",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 363,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 2579
+      },
+      "assure": {
+        "racine": "61893676",
+        "cle": "76"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-02-17",
+      "dateFin": "2025-04-11",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 364,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5512
+      },
+      "assure": {
+        "racine": "1436092575",
+        "cle": "75"
+      },
+      "seancesParSemaine": 4,
+      "nbSeances": 16,
+      "dateDebut": "2025-02-25",
+      "dateFin": "2025-03-20",
+      "tauxTVA": 7,
+      "montantTTC": 184.0,
+      "montantHT": 171.963,
+      "montantTVA": 12.037,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 365,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5383
+      },
+      "assure": {
+        "racine": "42681127",
+        "cle": "5"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-03-18",
+      "dateFin": "2025-05-09",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 366,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5463
+      },
+      "assure": {
+        "racine": "99272325",
+        "cle": "25"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 18,
+      "dateDebut": "2025-03-19",
+      "dateFin": "2025-04-28",
+      "tauxTVA": 7,
+      "montantTTC": 207.0,
+      "montantHT": 193.458,
+      "montantTVA": 13.542,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 367,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 6420
+      },
+      "assure": {
+        "racine": "102569214",
+        "cle": "14"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-03-21",
+      "dateFin": "2025-05-14",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 368,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4189
+      },
+      "assure": {
+        "racine": "25419959",
+        "cle": "59"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-02-11",
+      "dateFin": "2025-04-04",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 369,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4308
+      },
+      "assure": {
+        "racine": "45423275",
+        "cle": "9"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 36,
+      "dateDebut": "2025-02-28",
+      "dateFin": "2025-05-21",
+      "tauxTVA": 7,
+      "montantTTC": 414.0,
+      "montantHT": 386.916,
+      "montantTVA": 27.084,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 370,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4655
+      },
+      "assure": {
+        "racine": "12778069",
+        "cle": "5"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 18,
+      "dateDebut": "2025-02-27",
+      "dateFin": "2025-04-07",
+      "tauxTVA": 7,
+      "montantTTC": 207.0,
+      "montantHT": 193.458,
+      "montantTVA": 13.542,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 371,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5542
+      },
+      "assure": {
+        "racine": "1641722976",
+        "cle": "76"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 18,
+      "dateDebut": "2025-03-21",
+      "dateFin": "2025-04-30",
+      "tauxTVA": 7,
+      "montantTTC": 207.0,
+      "montantHT": 193.458,
+      "montantTVA": 13.542,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 372,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5515
+      },
+      "assure": {
+        "racine": "58684794",
+        "cle": "94"
+      },
+      "seancesParSemaine": 4,
+      "nbSeances": 32,
+      "dateDebut": "2025-02-22",
+      "dateFin": "2025-04-16",
+      "tauxTVA": 7,
+      "montantTTC": 368.0,
+      "montantHT": 343.925,
+      "montantTVA": 24.075,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 373,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 3496
+      },
+      "assure": {
+        "racine": "2367410490",
+        "cle": "90"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-02-03",
+      "dateFin": "2025-03-28",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 374,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4085
+      },
+      "assure": {
+        "racine": "57461382",
+        "cle": "82"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-02-24",
+      "dateFin": "2025-04-18",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 375,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4694
+      },
+      "assure": {
+        "racine": "2381547333",
+        "cle": "33"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 24,
+      "dateDebut": "2025-02-27",
+      "dateFin": "2025-04-21",
+      "tauxTVA": 7,
+      "montantTTC": 276.0,
+      "montantHT": 257.944,
+      "montantTVA": 18.056,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 376,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5924
+      },
+      "assure": {
+        "racine": "25810080",
+        "cle": "80"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 12,
+      "dateDebut": "2025-03-27",
+      "dateFin": "2025-04-21",
+      "tauxTVA": 7,
+      "montantTTC": 138.0,
+      "montantHT": 128.972,
+      "montantTVA": 9.028,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 377,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5511
+      },
+      "assure": {
+        "racine": "69006911",
+        "cle": "11"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 15,
+      "dateDebut": "2025-03-14",
+      "dateFin": "2025-04-16",
+      "tauxTVA": 7,
+      "montantTTC": 172.5,
+      "montantHT": 161.215,
+      "montantTVA": 11.285,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 378,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 4077
+      },
+      "assure": {
+        "racine": "55148944",
+        "cle": "44"
+      },
+      "seancesParSemaine": 3,
+      "nbSeances": 20,
+      "dateDebut": "2025-02-25",
+      "dateFin": "2025-04-09",
+      "tauxTVA": 7,
+      "montantTTC": 230.0,
+      "montantHT": 214.953,
+      "montantTVA": 15.047,
+      "dateEdition": "2025-10-28"
+    },
+    {
+      "numero": 379,
+      "anneeFacture": 2024,
+      "decision": {
+        "bureau": "40",
+        "annee": 2025,
+        "ordre": 5514
+      },
+      "assure": {
+        "racine": "98047701",
+        "cle": "1"
+      },
+      "seancesParSemaine": 2,
+      "nbSeances": 12,
+      "dateDebut": "2025-02-20",
+      "dateFin": "2025-03-31",
+      "tauxTVA": 7,
+      "montantTTC": 138.0,
+      "montantHT": 128.972,
+      "montantTVA": 9.028,
+      "dateEdition": "2025-10-28"
+    }
+  ],
+  "_expectedLines": [
+    "120240140100029875960000000000000000000000000000000000000000000000000260000000000000000000626750000000000000000000000000000000000000000",
+    "220240140100029875962024       354/2024407520250072670012366522000030182025041720250526000020700000001934580000007000000001354220251019",
+    "220240140100029875962024       355/2024407520250067690011638168020030122025041120250507000013800000001289720000007000000000902820251028",
+    "220240140100029875962024       356/2024407520250048342262000590900030242025031020250502000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       357/2024407520250043500079515142420030242025022820250423000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       358/2024407520250053331921451071710030242025031720250509000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       359/2024407520250049110084823264640030122025031020250404000013800000001289720000007000000000902820251028",
+    "220240140100029875962024       360/2024407520250041590088090144440030242025022520250418000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       361/2024407520250055550005014173000030182025032120250430000020700000001934580000007000000001354220251028",
+    "220240140100029875962024       362/2024407520250071040087865125250030242025041520250606000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       363/2024407520250025790061893676760030242025021720250411000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       364/2024407520250055121436092575750040162025022520250320000018400000001719630000007000000001203720251028",
+    "220240140100029875962024       365/2024407520250053830042681127050030242025031820250509000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       366/2024407520250054630099272325250030182025031920250428000020700000001934580000007000000001354220251028",
+    "220240140100029875962024       367/2024407520250064200102569214140030242025032120250514000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       368/2024407520250041890025419959590030242025021120250404000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       369/2024407520250043080045423275090030362025022820250521000041400000003869160000007000000002708420251028",
+    "220240140100029875962024       370/2024407520250046550012778069050030182025022720250407000020700000001934580000007000000001354220251028",
+    "220240140100029875962024       371/2024407520250055421641722976760030182025032120250430000020700000001934580000007000000001354220251028",
+    "220240140100029875962024       372/2024407520250055150058684794940040322025022220250416000036800000003439250000007000000002407520251028",
+    "220240140100029875962024       373/2024407520250034962367410490900030242025020320250328000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       374/2024407520250040850057461382820030242025022420250418000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       375/2024407520250046942381547333330030242025022720250421000027600000002579440000007000000001805620251028",
+    "220240140100029875962024       376/2024407520250059240025810080800030122025032720250421000013800000001289720000007000000000902820251028",
+    "220240140100029875962024       377/2024407520250055110069006911110030152025031420250416000017250000001612150000007000000001128520251028",
+    "220240140100029875962024       378/2024407520250040770055148944440030202025022520250409000023000000002149530000007000000001504720251028",
+    "220240140100029875962024       379/2024407520250055140098047701010020122025022020250331000013800000001289720000007000000000902820251028"
+  ]
+}
