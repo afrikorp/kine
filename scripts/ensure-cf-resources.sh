@@ -45,8 +45,11 @@ fi
 echo "D1 database_id: $D1_ID"
 
 echo "== KV namespace ($KV_TITLE) =="
+# `kv namespace create <title>` préfixe le titre avec le nom du Worker
+# (ex: "app-kine-api-app-kine-sessions") : on cherche par sous-chaîne plutôt
+# que par égalité stricte pour rester idempotent malgré ce préfixage.
 KV_LIST=$(npx wrangler kv namespace list)
-KV_ID=$(echo "$KV_LIST" | jq -r --arg TITLE "$KV_TITLE" '.[] | select(.title == $TITLE) | .id' | head -n1)
+KV_ID=$(echo "$KV_LIST" | jq -r --arg TITLE "$KV_TITLE" '.[] | select(.title | contains($TITLE)) | .id' | head -n1)
 
 if [ -z "${KV_ID}" ] || [ "${KV_ID}" = "null" ]; then
   echo "Pas trouvé, création du namespace KV $KV_TITLE..."
@@ -68,8 +71,15 @@ fi
 echo "KV namespace id: $KV_ID"
 
 echo "== R2 bucket ($R2_BUCKET) =="
-R2_LIST=$(npx wrangler r2 bucket list --json 2>/dev/null || echo '[]')
-R2_EXISTS=$(echo "$R2_LIST" | jq -r --arg NAME "$R2_BUCKET" '(.buckets // .) | .[]? | select(.name == $NAME) | .name' | head -n1)
+# `r2 bucket list --json` n'est pas fiable non plus sur cette version (sortie
+# non-JSON mêlée aux bannières wrangler) : recherche texte simple, comme pour
+# les commandes `create` ci-dessus.
+R2_LIST=$(npx wrangler r2 bucket list 2>&1) || true
+if echo "$R2_LIST" | grep -qF "$R2_BUCKET"; then
+  R2_EXISTS="1"
+else
+  R2_EXISTS=""
+fi
 
 if [ -z "${R2_EXISTS}" ]; then
   echo "Pas trouvé, création du bucket R2 $R2_BUCKET..."
