@@ -154,6 +154,12 @@ export function mapCabinet(row: CabinetRow) {
     codeCnamPraticien: row.code_cnam_praticien,
     cleCnamPraticien: row.cle_cnam_praticien,
     numeroDecision: row.numero_decision,
+    specialite: row.specialite,
+    banque: row.banque,
+    typePraticien: row.type_praticien,
+    codePrestation: row.code_prestation,
+    codeEmployeur: row.code_employeur,
+    cleEmployeur: row.cle_employeur,
     updatedAt: row.updated_at,
   };
 }

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input.js";
 import { Field } from "@/components/ui/field.js";
 import { ErrorBanner } from "@/components/error-banner.js";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select.js";
 import { formatDate, formatMontant, todayIso } from "@/lib/utils.js";
 
 const EMPTY_CABINET: Cabinet = {
@@ -21,8 +22,16 @@ const EMPTY_CABINET: Cabinet = {
   codeCnamPraticien: "",
   cleCnamPraticien: "",
   numeroDecision: "",
+  specialite: "",
+  banque: "",
+  typePraticien: "",
+  codePrestation: "75",
+  codeEmployeur: "",
+  cleEmployeur: "",
   updatedAt: "",
 };
+
+const CODES_PRESTATION = [{ value: "75", label: "75 — Kinésithérapie" }];
 
 function CabinetTab() {
   const [cabinet, setCabinet] = useState<Cabinet>(EMPTY_CABINET);
@@ -57,54 +66,129 @@ function CabinetTab() {
         <p className="text-sm text-muted-foreground">Reprises sur les factures et bordereaux imprimés</p>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <Field label="Nom du cabinet" htmlFor="nom">
-            <Input id="nom" value={cabinet.nom} onChange={(e) => setCabinet({ ...cabinet, nom: e.target.value })} required />
-          </Field>
-          <Field label="Adresse" htmlFor="adresse">
-            <Input id="adresse" value={cabinet.adresse} onChange={(e) => setCabinet({ ...cabinet, adresse: e.target.value })} />
-          </Field>
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Téléphone" htmlFor="telephone">
-              <Input id="telephone" value={cabinet.telephone} onChange={(e) => setCabinet({ ...cabinet, telephone: e.target.value })} />
-            </Field>
-            <Field label="RIB" htmlFor="rib">
-              <Input id="rib" value={cabinet.rib} onChange={(e) => setCabinet({ ...cabinet, rib: e.target.value })} />
-            </Field>
-            <Field label="Registre de commerce" htmlFor="rc">
-              <Input id="rc" value={cabinet.rc} onChange={(e) => setCabinet({ ...cabinet, rc: e.target.value })} />
-            </Field>
-            <Field label="Matricule fiscal" htmlFor="matriculeFiscal">
-              <Input
-                id="matriculeFiscal"
-                value={cabinet.matriculeFiscal}
-                onChange={(e) => setCabinet({ ...cabinet, matriculeFiscal: e.target.value })}
-              />
-            </Field>
-            <Field label="Code CNAM praticien" htmlFor="codeCnamPraticien" hint='Ex: "29875"'>
-              <Input
-                id="codeCnamPraticien"
-                value={cabinet.codeCnamPraticien}
-                onChange={(e) => setCabinet({ ...cabinet, codeCnamPraticien: e.target.value })}
-                required
-              />
-            </Field>
-            <Field label="Clé CNAM praticien" htmlFor="cleCnamPraticien" hint='Ex: "96"'>
-              <Input
-                id="cleCnamPraticien"
-                value={cabinet.cleCnamPraticien}
-                onChange={(e) => setCabinet({ ...cabinet, cleCnamPraticien: e.target.value })}
-                required
-              />
-            </Field>
-            <Field label="N° Décision" htmlFor="numeroDecision">
-              <Input
-                id="numeroDecision"
-                value={cabinet.numeroDecision}
-                onChange={(e) => setCabinet({ ...cabinet, numeroDecision: e.target.value })}
-              />
-            </Field>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <fieldset className="flex flex-col gap-3 rounded-lg border p-4">
+              <legend className="px-1 text-sm font-medium text-muted-foreground">Données société</legend>
+              <Field label="Responsable" htmlFor="nom">
+                <Input id="nom" value={cabinet.nom} onChange={(e) => setCabinet({ ...cabinet, nom: e.target.value })} required />
+              </Field>
+              <Field label="Spécialité" htmlFor="specialite">
+                <Input id="specialite" value={cabinet.specialite} onChange={(e) => setCabinet({ ...cabinet, specialite: e.target.value })} />
+              </Field>
+              <Field label="Adresse" htmlFor="adresse">
+                <Input id="adresse" value={cabinet.adresse} onChange={(e) => setCabinet({ ...cabinet, adresse: e.target.value })} />
+              </Field>
+              <Field label="Tél./Gsm" htmlFor="telephone">
+                <Input id="telephone" value={cabinet.telephone} onChange={(e) => setCabinet({ ...cabinet, telephone: e.target.value })} />
+              </Field>
+              <Field label="R.C" htmlFor="rc">
+                <Input id="rc" value={cabinet.rc} onChange={(e) => setCabinet({ ...cabinet, rc: e.target.value })} />
+              </Field>
+              <Field label="Matricule fiscale" htmlFor="matriculeFiscal">
+                <Input
+                  id="matriculeFiscal"
+                  value={cabinet.matriculeFiscal}
+                  onChange={(e) => setCabinet({ ...cabinet, matriculeFiscal: e.target.value })}
+                />
+              </Field>
+              <Field label="RIB/RIP" htmlFor="rib">
+                <Input id="rib" value={cabinet.rib} onChange={(e) => setCabinet({ ...cabinet, rib: e.target.value })} />
+              </Field>
+              <Field label="Banque" htmlFor="banque">
+                <Input id="banque" value={cabinet.banque} onChange={(e) => setCabinet({ ...cabinet, banque: e.target.value })} />
+              </Field>
+            </fieldset>
+
+            <fieldset className="flex flex-col gap-3 rounded-lg border p-4">
+              <legend className="px-1 text-sm font-medium text-muted-foreground">Données professionnelles</legend>
+              <div className="grid grid-cols-2 gap-3">
+                <Field label="Type" htmlFor="typePraticien">
+                  <Input
+                    id="typePraticien"
+                    value={cabinet.typePraticien}
+                    onChange={(e) => setCabinet({ ...cabinet, typePraticien: e.target.value })}
+                  />
+                </Field>
+                <Field label="Code" htmlFor="codeCnamPraticien" hint='Ex: "29875"'>
+                  <Input
+                    id="codeCnamPraticien"
+                    value={cabinet.codeCnamPraticien}
+                    onChange={(e) => setCabinet({ ...cabinet, codeCnamPraticien: e.target.value })}
+                    required
+                  />
+                </Field>
+                <Field label="Clé" htmlFor="cleCnamPraticien" hint='Ex: "96"'>
+                  <Input
+                    id="cleCnamPraticien"
+                    value={cabinet.cleCnamPraticien}
+                    onChange={(e) => setCabinet({ ...cabinet, cleCnamPraticien: e.target.value })}
+                    required
+                  />
+                </Field>
+                <Field label="Code CNAM conventionnel" htmlFor="codeCnamConventionnel">
+                  <Input
+                    id="codeCnamConventionnel"
+                    value={`${cabinet.typePraticien}/${cabinet.codeCnamPraticien}/${cabinet.cleCnamPraticien}`}
+                    readOnly
+                    disabled
+                  />
+                </Field>
+              </div>
+
+              <Field label="Code prestation" htmlFor="codePrestation">
+                <Select
+                  value={cabinet.codePrestation}
+                  onValueChange={(value) => setCabinet({ ...cabinet, codePrestation: value })}
+                >
+                  <SelectTrigger id="codePrestation">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CODES_PRESTATION.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </Field>
+
+              <div className="grid grid-cols-3 gap-3">
+                <Field label="Cod. Employeur" htmlFor="codeEmployeur">
+                  <Input
+                    id="codeEmployeur"
+                    value={cabinet.codeEmployeur}
+                    onChange={(e) => setCabinet({ ...cabinet, codeEmployeur: e.target.value })}
+                  />
+                </Field>
+                <Field label="Clé Employeur" htmlFor="cleEmployeur">
+                  <Input
+                    id="cleEmployeur"
+                    value={cabinet.cleEmployeur}
+                    onChange={(e) => setCabinet({ ...cabinet, cleEmployeur: e.target.value })}
+                  />
+                </Field>
+                <Field label="N. Employeur" htmlFor="numeroEmployeur">
+                  <Input
+                    id="numeroEmployeur"
+                    value={`${cabinet.codeEmployeur}/${cabinet.cleEmployeur}`}
+                    readOnly
+                    disabled
+                  />
+                </Field>
+              </div>
+
+              <Field label="N° Décision" htmlFor="numeroDecision">
+                <Input
+                  id="numeroDecision"
+                  value={cabinet.numeroDecision}
+                  onChange={(e) => setCabinet({ ...cabinet, numeroDecision: e.target.value })}
+                />
+              </Field>
+            </fieldset>
           </div>
+
           <ErrorBanner message={error} />
           {saved && <p className="text-sm text-green-700">Enregistré.</p>}
           <div>
