@@ -153,6 +153,7 @@ export function mapCabinet(row: CabinetRow) {
     rib: row.rib,
     codeCnamPraticien: row.code_cnam_praticien,
     cleCnamPraticien: row.cle_cnam_praticien,
+    numeroDecision: row.numero_decision,
     updatedAt: row.updated_at,
   };
 }

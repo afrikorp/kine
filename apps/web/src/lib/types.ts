@@ -97,6 +97,7 @@ export interface Cabinet {
   rib: string;
   codeCnamPraticien: string;
   cleCnamPraticien: string;
+  numeroDecision: string;
   updatedAt: string;
 }
 
