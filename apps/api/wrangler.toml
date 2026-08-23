@@ -1,20 +1,27 @@
-name = "kine-cnam-api"
+name = "app-kine-api"
 main = "src/index.ts"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
 
+# ALLOWED_ORIGIN n'est volontairement PAS définie ici : en local (wrangler dev),
+# on veut le CORS permissif par défaut (reflète l'origine de la requête, cf.
+# src/index.ts) pour que le frontend en localhost:5173 fonctionne sans config.
+# En production, le workflow de déploiement la fixe via `wrangler deploy --var`
+# (voir .github/workflows/deploy.yml) sans qu'elle ne pollue wrangler.toml.
+
 [[d1_databases]]
 binding = "DB"
-database_name = "kine-cnam-db"
-# À remplacer par l'ID réel après `wrangler d1 create kine-cnam-db`.
-database_id = "00000000-0000-0000-0000-000000000000"
+database_name = "app-kine-db"
+# Placeholder local : remplacé par l'ID réel en CI (voir .github/workflows/deploy.yml
+# et scripts/ensure-cf-resources.sh). Une valeur arbitraire suffit pour `wrangler dev --local`.
+database_id = "__D1_DATABASE_ID__"
 migrations_dir = "migrations"
 
 [[kv_namespaces]]
 binding = "SESSIONS"
-# À remplacer par l'ID réel après `wrangler kv namespace create SESSIONS`.
-id = "00000000000000000000000000000000"
+# Placeholder local : remplacé par l'ID réel en CI, comme pour database_id ci-dessus.
+id = "__KV_NAMESPACE_ID__"
 
 [[r2_buckets]]
 binding = "FILES"
-bucket_name = "kine-cnam-files"
+bucket_name = "app-kine-files"
